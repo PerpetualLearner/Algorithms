@@ -40,5 +40,19 @@ namespace Algorithms.StringSearching
             }
             return resultArray;
         }
+
+		public static int Search(string pattern, string text)
+		{
+			var prefixes = Naive(pattern + "#" + text);
+
+			for (int i = 0; i < prefixes.Length; i++)
+			{
+				if (prefixes[i] == pattern.Length)
+				{
+					return i - pattern.Length - pattern.Length;
+				}
+			}
+			return -1;
+		}
     }
 }
