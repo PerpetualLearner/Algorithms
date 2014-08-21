@@ -12,6 +12,11 @@ namespace Algorithms.Tests.StringSearching
 		[Test]
 		public void NaiveTest()
 		{
+			var v = "aaaaaaaaaaaaaaaaa";
+			int[] result0 = PrefixFunction.Naive(v);
+			Assert.That(result0, Is.Not.Null);
+			Console.WriteLine(v.Length);
+
 			int[] result = PrefixFunction.Naive("abcabcd");
 			Assert.That(result, Is.EqualTo(new[] { 0, 0, 0, 1, 2, 3, 0 }));
 

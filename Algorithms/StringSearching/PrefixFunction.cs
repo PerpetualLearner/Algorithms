@@ -1,3 +1,5 @@
+using System;
+
 namespace Algorithms.StringSearching
 {
     public static class PrefixFunction
@@ -7,13 +9,23 @@ namespace Algorithms.StringSearching
         /// </summary>
         /// <remarks>
         /// Вычисляет префикс-функцию грубой силой за время О(n^3). 
-        /// Наихудший случай - строка из одинаковых символов - тогда префикс функция будет расти и внутренний цикл будет выполняться (длина префикса - 1) раз.</remarks>
+        /// Наихудший случай - строка из одинаковых символов - тогда префикс функция будет расти и внутренний цикл будет выполняться (длина префикса - 1) раз.
+        /// Для строки aa -   1 сравнение.
+        /// Для строки aaa -  4 сравнения.
+        /// Для строки aaaa - 10 сравнений.
+        /// Для строки aaaaa - 20 сравнений.
+        /// Для строки aaaaaa - 35 сравнений.
+        /// </remarks>
 		/// <returns>
 		/// Возвращает массив максимальных длин совпадающих суффикса и префикса для каждой подстроки исходной строки.
 		/// </returns>
         public static int[] Naive(string text)
         {
-            // Результаты значения префикс функции для каждого префикса строки.
+	        // Счетчик кол-ва сравнений.
+			var comparesCounter = 0;
+			
+			
+			// Результаты значения префикс функции для каждого префикса строки.
             var resultArray = new int[text.Length];
 
             // Префикс-функция для строки из одного элемента по определению равна 0,
@@ -34,6 +46,7 @@ namespace Algorithms.StringSearching
                     // Сравниваем суффикс и префикс посимвольно, начиная с первого символа. 
                     for (int k = 0; k < j; k++)
                     {
+	                    ++comparesCounter;
 	                    if (text[k] != text[i - j + k])
 	                    {
 		                    isEqual = false;
@@ -45,8 +58,10 @@ namespace Algorithms.StringSearching
                         maxLength = j;
                 }
 
+				// Запоминаем вычисленное значение префикс фукнции.
                 resultArray[i - 1] = maxLength;
             }
+			Console.WriteLine("Кол-во сравнений: " + comparesCounter);
             return resultArray;
         }
 
